@@ -40,10 +40,15 @@ class PerceptronClassifier:
         """
         predicted_output = self.prediction(instance.feature_counts)
         error = 0 # TODO: Ex. 7: Replace 0 with the correct calculation of the error
+        if not instance.label and predicted_output :
+            error = 1
+        elif  instance.label and not predicted_output :
+            error = -1
         do_update = error !=0
         if do_update:
+            # TODO: Ex. 7: Replace pass with update of feature weights
             for feature, count in instance.feature_counts.items():
-                pass  # TODO: Ex. 7: Replace pass with update of feature weights
+              self.weights[feature]-=error*count
         return do_update
 
     def training_iteration(self, dataset):
@@ -87,7 +92,28 @@ class PerceptronClassifier:
         """
         Caclculate f_measure of classifier for a labelled dataset and a specified label.
         """
-        return 0 # TODO: Do the prediction for a given data set, and return the f-measure for a label of interest.
+        tp=0
+        tn=0
+        fp=0
+        fn=0
+
+        for instance in dataset.instance_list:
+            vorher = (self.prediction(instance.feature_counts) == instance.label)==for_label
+            gold = instance.label!=for_label
+            if vorher and gold:
+                tp+=1
+            elif vorher and not gold:
+                fp+=1
+            elif not vorher and gold:
+                tn+=1
+            elif not vorher and not gold:
+                fn+=1
+
+        prec = tp / (tp + fp)
+        rec = tp / (tp + fn)
+        fmeasure = (2 * prec * rec) / (prec + rec)
+
+        return fmeasure # TODO: Do the prediction for a given data set, and return the f-measure for a label of interest.
 
     def copy(self):
         """

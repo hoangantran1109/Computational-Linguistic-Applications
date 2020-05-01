@@ -1,5 +1,4 @@
 from unittest import TestCase
-
 from hw01_perceptron.perceptron_classifier import PerceptronClassifier
 from hw01_perceptron.utils import DataInstance, Dataset, dot
 
