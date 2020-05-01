@@ -98,8 +98,8 @@ class PerceptronClassifier:
         fn=0
 
         for instance in dataset.instance_list:
-            vorher = (self.prediction(instance.feature_counts) == instance.label)==for_label
-            gold = instance.label!=for_label
+            vorher = (self.prediction(instance.feature_counts) == instance.label)!=for_label
+            gold = instance.label==for_label
             if vorher and gold:
                 tp+=1
             elif vorher and not gold:
