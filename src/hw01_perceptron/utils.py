@@ -7,8 +7,9 @@ from nltk import word_tokenize
 
 
 def dot(dictA, dictB):
-    return sum([dictA.get(tok) * dictB.get(tok, 0) for tok in dictA]) # TODO: Ex. 2: return vector product between features vectors represented by dictA and dictB.
-
+    #return sum([dictA.get(tok) * dictB.get(tok, 0) for tok in dictA]) # TODO: Ex. 2: return vector product between features vectors represented by dictA and dictB.
+    #return sum([dictA.get(tok) * dictB.get(tok) for tok in dictA if tok in dictB])
+    return sum([dictA[tok] * dictB[tok] for tok in dictA if tok in dictB])
 def normalized_tokens(text):
     return [token.lower() for token in word_tokenize(text)]
 

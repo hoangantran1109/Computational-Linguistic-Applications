@@ -102,12 +102,12 @@ class PerceptronClassifier:
             gold = instance.label==for_label
             if vorher and gold:
                 tp+=1
-            elif vorher and not gold:
-                fp+=1
+            elif not vorher and  gold:
+                fn+=1
             elif not vorher and gold:
                 tn+=1
             elif not vorher and not gold:
-                fn+=1
+                fp+=1
 
         prec = tp / (tp + fp)
         rec = tp / (tp + fn)

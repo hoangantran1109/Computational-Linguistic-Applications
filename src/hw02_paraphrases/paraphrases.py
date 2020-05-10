@@ -19,30 +19,30 @@ def character_ngrams(text, n):
 
 def token_ngrams(tokens, n):
     """ Returns a list of lists with n-grams."""
-    return [' '.join(tokens[i:i+n]) for i in range(len(tokens)-n+1)]
+    # TODO Exercise 1.1
+    return [' '.join(tokens[i:i + n]) for i in range(len(tokens) - n + 1)]
 
 def token_features(tokens1, tokens2):
     features = dict()
-    intersection = len(tokens1.intersection(tokens2))
-    union = len(tokens1.union(tokens2))
-    features.update({WORD_OVERLAP: intersection})
+    #  TODO Exercise 1.2
+    intersection=len(tokens1.intersection(tokens2))
+    union=len(tokens1.union(tokens2))
+    features.update({WORD_OVERLAP:intersection})
     features.update({WORD_UNION: union})
     return features
 
 def word_ngram_features(ngrams1, ngrams2):
     features = dict()
-    intersection = len(ngrams1.intersection(ngrams2))
-    union = len(ngrams1.union(ngrams2))
-    features.update({WORD_NGRAM_OVERLAP: intersection})
-    features.update({WORD_NGRAM_UNION: union})
+    # TODO Exercise 1.3
+    features.update({WORD_NGRAM_OVERLAP:len(ngrams1.intersection(ngrams2))})
+    features.update({WORD_NGRAM_UNION:len(ngrams1.union(ngrams2))})
     return features
 
 def character_ngram_features(ngrams1, ngrams2):
     features = dict()
-    intersection = len(ngrams1.intersection(ngrams2))
-    union = len(ngrams1.union(ngrams2))
-    features.update({CHARACTER_NGRAM_OVERLAP: intersection})
-    features.update({CHARACTER_NGRAM_UNION: union})
+    # TODO Exercise 1.4
+    features.update({CHARACTER_NGRAM_OVERLAP: len(ngrams1.intersection(ngrams2))})
+    features.update({CHARACTER_NGRAM_UNION: len(ngrams1.union(ngrams2))})
     return features
 
 def wordpair_features(tokens1, tokens2):
@@ -50,8 +50,7 @@ def wordpair_features(tokens1, tokens2):
     # TODO Exercise 1.5
     for token1 in tokens1:
         for token2 in tokens2:
-            wordpair_features = token1 + '#' + token2
-            features.update({wordpair_features:1})
+            features.update({token1 + '#'+ token2:1})
     return features
 
 def paraphrases_to_dataset(filename, f_token=True, f_w_ngram=True, f_c_ngram=True, f_wordpair=True):
