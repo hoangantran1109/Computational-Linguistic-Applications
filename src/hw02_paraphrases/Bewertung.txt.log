@@ -1,0 +1,111 @@
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+F
+======================================================================
+FAIL: test01b_square_roots_hidden (hw02_paraphrases.hidden_test_small_functions.TestSmallFunctions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File .../tmp_repositories/abgabe/hw02_paraphrases/TUM_s/src/hw02_paraphrases/hidden_test_small_functions.py", line 14, in test01b_square_roots_hidden
+    np.testing.assert_almost_equal([1.4142136, 1.], sf.square_roots(2, 1, 2))
+  File "/home/leo/.local/lib/python3.6/site-packages/numpy/testing/_private/utils.py", line 585, in assert_almost_equal
+    return assert_array_almost_equal(actual, desired, decimal, err_msg)
+  File "/home/leo/.local/lib/python3.6/site-packages/numpy/testing/_private/utils.py", line 1047, in assert_array_almost_equal
+    precision=decimal)
+  File "/home/leo/.local/lib/python3.6/site-packages/numpy/testing/_private/utils.py", line 846, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Arrays are not almost equal to 7 decimals
+
+Mismatched elements: 1 / 2 (50%)
+Max absolute difference: 0.22474487
+Max relative difference: 0.18350342
+ x: array([1.4142136, 1.       ])
+ y: array([1.4142136, 1.2247449])
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+FAILED (failures=1)
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
