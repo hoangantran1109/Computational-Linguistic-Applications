@@ -67,19 +67,21 @@ def paraphrases_to_dataset(filename, vectorizer=None):
             list_of_feature_dicts.append(features)
     if not vectorizer:
     # TODO Ex.3.1
-        pass
-    pass
+        vectorizer = DictVectorizer()
+        vectorizer.fit(list_of_feature_dicts)
+    feature_matrix = vectorizer.transform(list_of_feature_dicts)
     # TODO: Uncomment the following line and replace the one below:
-    # return feature_matrix, list_of_labels, vectorizer
-    return None, None , None # <- REPLACE
+    return feature_matrix, list_of_labels, vectorizer
 
 def readData(trainpath, devpath, testpath):
     """Creates feature matrices from filenames"""
     # TODO Ex 3.2
-    pass
+    train_X, train_Y, vectorizer = paraphrases_to_dataset(trainpath)
+    dev_X, dev_Y, vectorizer = paraphrases_to_dataset(devpath,vectorizer)
+    test_X, test_Y, vectorizer = paraphrases_to_dataset(testpath,vectorizer)
     # TODO: Uncomment the following line and replace the one below:
-    #return train_X, train_Y, dev_X, dev_Y, test_X, test_Y
-    return None, None , None , None , None , None # <- REPLACE
+    return train_X, train_Y, dev_X, dev_Y, test_X, test_Y
+
 
 
 def paraphrases_classifier_accuracy(train_file, dev_file, test_file,verbose=False):
