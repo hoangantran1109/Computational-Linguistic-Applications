@@ -11,5 +11,8 @@ def trigram_quadragram_vectorizer(texts):
     >>> v.get_feature_names()
     ['my name is', 'my name is bond', 'name is bond']
     """
-    return None  # TODO: Exercise 1
+    vectorizer = CountVectorizer(min_df=3,ngram_range=(3, 4))
+    X = vectorizer.fit_transform(texts)
+    return vectorizer
+    #return None  # TODO: Exercise 1
 

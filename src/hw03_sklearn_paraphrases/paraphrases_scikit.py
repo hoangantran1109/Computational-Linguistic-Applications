@@ -67,32 +67,34 @@ def paraphrases_to_dataset(filename, vectorizer=None):
             list_of_feature_dicts.append(features)
     if not vectorizer:
     # TODO Ex.3.1
-        pass
-    pass
+        vectorizer = DictVectorizer()
+        vectorizer.fit(list_of_feature_dicts)
+    feature_matrix=vectorizer.transform(list_of_feature_dicts)
     # TODO: Uncomment the following line and replace the one below:
-    # return feature_matrix, list_of_labels, vectorizer
-    return None, None , None # <- REPLACE
+    return feature_matrix, list_of_labels , vectorizer # <- REPLACE
 
 def readData(trainpath, devpath, testpath):
     """Creates feature matrices from filenames"""
     # TODO Ex 3.2
-    pass
+    train_X, train_Y, vectorizer = paraphrases_to_dataset(trainpath)
+    dev_X, dev_Y, vectorizer = paraphrases_to_dataset(devpath, vectorizer)
+    test_X, test_Y, vectorizer = paraphrases_to_dataset(testpath, vectorizer)
     # TODO: Uncomment the following line and replace the one below:
-    #return train_X, train_Y, dev_X, dev_Y, test_X, test_Y
-    return None, None , None , None , None , None # <- REPLACE
+    return train_X, train_Y, dev_X, dev_Y, test_X, test_Y # <- REPLACE
+
 
 
 def paraphrases_classifier_accuracy(train_file, dev_file, test_file,verbose=False):
     """Trains two classifiers and computes dev accuracies.
     The best classifier is selected and its accuracy on the test set is computed"""
-    return -1 , -1 , -1 # TODO: uncomment or delete for Ex 3.3
+    #return -1 , -1 , -1 # TODO: uncomment or delete for Ex 3.3
     train_X, train_Y, dev_X, dev_Y, test_X, test_Y = readData(train_file, dev_file, test_file)
     lr_list = [(LogisticRegression(C=0.01, penalty="l2"),'LogisticRegression(C=0.01, penalty="l2")'),
                (LogisticRegression(C=0.1, penalty="l2"),'LogisticRegression(C=0.1, penalty="l2")'),
                (LogisticRegression(C=1.0, penalty="l2"),'LogisticRegression(C=1.0, penalty="l2")'),
-               (LogisticRegression(C=0.01, penalty="l1"),'LogisticRegression(C=0.01, penalty="l1")'),
-               (LogisticRegression(C=0.1, penalty="l1"),'LogisticRegression(C=0.1, penalty="l1")'),
-               (LogisticRegression(C=1.0, penalty="l1"),'LogisticRegression(C=1.0, penalty="l1")'),
+               (LogisticRegression(C=0.01,solver="liblinear", penalty="l1"),'LogisticRegression(C=0.01, penalty="l1")'),
+               (LogisticRegression(C=0.1,solver="liblinear", penalty="l1"),'LogisticRegression(C=0.1, penalty="l1")'),
+               (LogisticRegression(C=1.0,solver="liblinear", penalty="l1"),'LogisticRegression(C=1.0, penalty="l1")'),
                ]
     svc_list = [(LinearSVC(C=0.1) , "LinearSVC(C=0.1)"),
                 (LinearSVC(C=1.0) , "LinearSVC(C=1.0)")]
@@ -101,9 +103,10 @@ def paraphrases_classifier_accuracy(train_file, dev_file, test_file,verbose=Fals
     best_classifier = None
     best_classifier_name = None
     for cl, cl_name in classifiers_with_names:
-
         # TODO Ex 3.3
         # cl.
+        cl = LogisticRegression()
+        cl.fit(train_X, train_Y) #the training matrix and labels. Skript 29/48
 
         dev_accuracy = accuracy_score(dev_Y, cl.predict(dev_X))
         if verbose:

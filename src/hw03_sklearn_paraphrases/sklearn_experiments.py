@@ -13,7 +13,9 @@ def make_matrix1(list_of_dicts):
     """ This creates a Dictvectorizer from a list of dictionaries, and uses it to create a Scipy sparse matrix
     containing the feature values of the dictionaries. The matrix is returned (the vectorizer is not returned)."""
     # TODO: Exercise 2.1
-    pass
+    v=DictVectorizer(sparse=True)
+    X = v.fit_transform(list_of_dicts)
+    return X
 
 
 def make_matrix2(list_of_dictsA, list_of_dictsB):
@@ -21,7 +23,10 @@ def make_matrix2(list_of_dictsA, list_of_dictsB):
     from a different list B of dictionaries (i.e. features that were not in list A are ignored).
     The matrix is returned (the vectorizer is not returned)."""
     # TODO: Exercise 2.2
-    pass
+    v = DictVectorizer()
+    v.fit(list_of_dictsA) #feature_map
+    transformiert_list=v.transform(list_of_dictsB)
+    return transformiert_list
 
 ## Uncomment for inspecting the results of your implementation.
 #x = make_matrix1(list_of_dicts_1)
