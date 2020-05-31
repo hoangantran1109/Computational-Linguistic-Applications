@@ -92,6 +92,6 @@ def ppmi_weight(cooc_matrix):
         p_r = sum_in_row[row,0]/sum_total
         p_c = sum_in_col[0,col]/sum_total
         value = math.log(p_r_c / (p_r * p_c))
-        ppmi_matrix[row, col] = value if value > 0 else 0
+        ppmi_matrix[row, col] = max(0,value)
         # TODO: Exercise 3: calculate PPMI, and store result in ppmi_matrix
     return ppmi_matrix
