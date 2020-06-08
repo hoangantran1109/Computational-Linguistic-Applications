@@ -55,19 +55,22 @@ class PpmiWeightedSparseMatrix:
         """
         # TODO: Exercise 2.1
         # define the vocabulary
+        self.vocab = vocabulary_from_wordlist(word_list, vocab_size)
         # get co-occurrences dict
+        self.cooc_dict = cooccurrences(word_list, window_size, self.vocab)
         # create word matrix, word to column and column to word mapping
         # Apply PPMI weighting to the word matrix
         # (Use the class attribute names accessed in other class methods)
-        self.word_matrix = None # TODO: Ex 2.1
-        self.word_to_id = {} # TODO
-        self.id_to_word = {} # TODO
-        pass # TODO
+        self.word_matrix , self.word_to_id = cooc_dict_to_matrix(self.cooc_dict, self.vocab)
+        self.id_to_word = {w:i for i,w in self.word_to_id.items()}
+        self.word_matrix = ppmi_weight(self.word_matrix)
 
     def toSvdSimilarityMatrix(self, n_components):
         """ Computes truncated SVD with only n columns retained."""
         # TODO: Exercise 2.2
-        return None
+        svd = TruncatedSVD(n_components)
+        U_sigma_trunc = svd.fit_transform(self.word_matrix)
+        return DenseSimilarityMatrix(U_sigma_trunc,self.word_to_id)
 
     def similarities_of_word(self, word):
         """ Computes cosine similarity between one query word and all words in the vocabulary. Efficient
@@ -75,14 +78,14 @@ class PpmiWeightedSparseMatrix:
         row = self.word_to_id[word]
         vec = self.word_matrix[row,:]
         m = self.word_matrix
-        dot_m_v = None # vector # TODO: Exercise 2.3
-        dot_m_m = None # vector # TODO
-        dot_v_v = None # float # TODO
-        return dot_m_v / (math.sqrt(dot_v_v) * np.sqrt(dot_m_m))
+        dot_m_v = m.dot(vec.T) # vector #
+        dot_m_m = np.sum(m ** 2, axis=1) # vector #
+        dot_v_v = vec.dot(vec.T) # float #
+        return dot_m_v/(math.sqrt(dot_v_v[0,0]) * np.sqrt(dot_m_m))
 
     def most_similar_words(self, word, n):
         """ Returns a list of n words with the greatest similarities to the given word."""
         if word not in self.word_to_id:
             return []
-        sims = None # TODO: Exercise 2.3
+        sims = np.array(self.similarities_of_word(word)).flatten()#
         return [self.id_to_word[id] for id in (-sims).argsort()[:n]]
