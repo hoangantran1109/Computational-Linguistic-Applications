@@ -1,0 +1,73 @@
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+OK
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+OK
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+OK
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.006s
+
+OK
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.003s
+
+OK
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+OK
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+OK
+F
+======================================================================
+FAIL: test05_similarities_of_word (hw05_word_similarity.hidden_test_word_similarity.HiddenTestWordSimilarity)
+Tests sparse ranking
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File .../tmp_repositories/abgabe/hw05_word_similarity/TUM_s/src/hw05_word_similarity/hidden_test_word_similarity.py", line 52, in test05_similarities_of_word
+    np.testing.assert_almost_equal(sims.tolist(), [0.0, 0.0, 1.0, 0.9577647468293286], 8)
+  File "/home/leo/.local/lib/python3.6/site-packages/numpy/testing/_private/utils.py", line 585, in assert_almost_equal
+    return assert_array_almost_equal(actual, desired, decimal, err_msg)
+  File "/home/leo/.local/lib/python3.6/site-packages/numpy/testing/_private/utils.py", line 1047, in assert_array_almost_equal
+    precision=decimal)
+  File "/home/leo/.local/lib/python3.6/site-packages/numpy/testing/_private/utils.py", line 765, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Arrays are not almost equal to 8 decimals
+
+(shapes (4, 1), (4,) mismatch)
+ x: array([[0.        ],
+       [0.        ],
+       [0.70885481],
+       [0.69005079]])
+ y: array([0.        , 0.        , 1.        , 0.95776475])
+
+----------------------------------------------------------------------
+Ran 1 test in 0.007s
+
+FAILED (failures=1)

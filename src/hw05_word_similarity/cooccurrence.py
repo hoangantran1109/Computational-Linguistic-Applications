@@ -15,12 +15,9 @@ def vocabulary_from_wordlist(word_list, vocab_size):
     >>> v == {'a', 'rose', 'is'}
     True
     """
-    # TODO: Exercise 1 *DONE
-    c = Counter()
-    for w in word_list:
-        c[w] += 1
-    most_freq = dict(c.most_common(vocab_size))
-    return set(most_freq.keys())
+    # TODO: Exercise 1
+    most_freq_words = [word for word, word_count in Counter(word_list).most_common(vocab_size)]
+    return set(most_freq_words)
 
 
 def cooccurrences(tokens, n, vocab):
@@ -37,12 +34,7 @@ def cooccurrences(tokens, n, vocab):
     True
     """
 
-    # TODO insert code here *Done
-    # you can use your code from hw04_cooccurrence/cooccurrence.py, but you have to adjust it a little bit.
-    # this method takes tokens (not a text like in hw04), and is also given the vocabulary
-    # and considers only those words in the vocabulary
-    # or
-    # use the code provided in cooc_func.nopy on the website/moodle
+    # TODO insert code here
     cooc_dict = defaultdict(int)
     size = n + 1
     for i, f_middle_word in enumerate(tokens):
@@ -87,15 +79,9 @@ def cooc_dict_to_matrix(cooc_dict, vocab):
     """
     word_to_id = {w: i for i, w in enumerate(sorted(vocab))}
     m = lil_matrix((len(vocab), len(vocab)))
-    # TODO insert code here *Done
-    word_to_id = {w: i for i, w in enumerate(sorted(vocab))}
-    m = lil_matrix((len(vocab), len(vocab)))
+    # TODO insert code here
     for (w1, w2), count in cooc_dict.items():
         m[word_to_id[w1], word_to_id[w2]] = count
-
-    # you can use your code from hw04_cooccurrence/cooccurrence.py
-    # or
-    # use the code provided in cooc_func.nopy on the website/moodle
     return m, word_to_id
 
 
@@ -124,23 +110,13 @@ def ppmi_weight(cooc_matrix):
     ppmi_matrix = lil_matrix(cooc_matrix.shape)
     rows, cols = cooc_matrix.nonzero()
     for row, col in zip(rows, cols):
-        # TODO insert code here *Done
-        sum_total = cooc_matrix.sum()
-        sum_in_col = cooc_matrix.sum(0).A1
-        sum_in_row = cooc_matrix.sum(1).A1
-        ppmi_matrix = lil_matrix(cooc_matrix.shape)
-        rows, cols = cooc_matrix.nonzero()
-        for row, col in zip(rows, cols):
-            prc = cooc_matrix[row, col]
-            pr = sum_in_row[row]
-            pc = sum_in_col[col]
+        # TODO insert code here
+        prc = cooc_matrix[row, col]
+        pr = sum_in_row[row]
+        pc = sum_in_col[col]
 
-            ppmi = math.log(prc) + math.log(sum_total) - math.log(pr) - math.log(pc)
+        ppmi = math.log(prc) + math.log(sum_total) - math.log(pr) - math.log(pc)
 
-            if ppmi > 0:
-                ppmi_matrix[row, col] = ppmi
-        # you can use your code from hw04_cooccurrence/cooccurrence.py
-        # or
-        # use the code provided in cooc_func.nopy on the website/moodle
-        pass
+        if ppmi > 0:
+            ppmi_matrix[row, col] = ppmi
     return ppmi_matrix
