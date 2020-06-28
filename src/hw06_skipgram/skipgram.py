@@ -17,7 +17,7 @@ class SkipGram:
         self.word_to_id = utils.vocabulary_to_id_for_wordlist(tokens, vocab_size)
         self.pos_neg_list = list(utils.positive_and_negative_cooccurrences(tokens, window_size, neg_samples_factor, self.word_to_id))
         rows = len(self.word_to_id)
-        self.target_word_matrix = 0.1 * np.random.randn(rows, num_dims)
+        self.target_word_matrix = 0.1 * np.random.randn(rows, num_dims) #randn Normalverteilung
         self.context_word_matrix = 0.1 * np.random.randn(rows, num_dims)
 
     def update(self, target_id, context_id, label, learning_rate): # TODO: Exercise 4.
@@ -32,15 +32,22 @@ class SkipGram:
         """
         ctxt_vec = self.context_word_matrix[context_id]
         tgt_vec = self.target_word_matrix[target_id]
-        ctxt_vec_copy = np.copy(ctxt_vec)
-        tgt_vec_copy = np.copy(tgt_vec)
+
 
         prob_pos = utils.sigmoid((ctxt_vec.T).dot(tgt_vec)) # TODO: Replace by probability that pair belongs to positive category.
+        #prob_pos = utils.sigmoid(np.dot(ctxt_vec, tgt_vec))
+
+        ctxt_vec_copy = np.copy(ctxt_vec)
+        tgt_vec_copy = np.copy(tgt_vec)
         # TODO: update context_word_matrix[context_id] using gradient and learning rate
         self.context_word_matrix[context_id] = ctxt_vec_copy + (learning_rate * (label - prob_pos)) * tgt_vec_copy
         # TODO: update target_word_matrix[target_id] using gradient and learning rate
         self.target_word_matrix[target_id] = tgt_vec_copy + (learning_rate * (label - prob_pos)) * ctxt_vec_copy
         return math.log(prob_pos) if label else math.log(1 - prob_pos)
+
+        #ctxt_vec_copy = np.copy(ctxt_vec)
+        #self.context_word_matrix[context_id] = ctxt_vec + learning_rate * (label - prob_pos) * tgt_vec
+        #self.target_word_matrix[target_id] = tgt_vec + learning_rate * (label - prob_pos) * ctxt_vec_copy
 
     def train_iter(self, learning_rate=0.1):
         """

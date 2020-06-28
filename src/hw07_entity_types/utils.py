@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 import numpy as np
 from scipy.sparse import coo_matrix
 
@@ -22,9 +24,19 @@ def read_word2vec_file(filename):
         m_word_vectors -- Numpy array of size number_of_words x number_of_dimensions, containing the word vectors.
         word_to_id -- Dictionary, mapping each word to the corresponding row in the matrix.
     """
-    word_to_id = dict()
-    m_word_vectors = None
-    # TODO Exercise 1
+    with open(filename, "r") as modelfile:
+        rows, cols = modelfile.readline().split(" ")
+        vocab=[]
+        features_list = []
+        for line in modelfile.readlines():
+            vocab.append((line.split(" ", 1))[0])
+            _, features = line.split(" ", 1)
+            features_list += [float(feature) for feature in features.split(" ")]
+        final_vocab=list(dict.fromkeys(vocab))
+        word_to_id = {w: i for i, w in enumerate(final_vocab)}
+        #word_to_id = {w: i for i, w in enumerate(vocab)}
+        m_word_vectors = np.array(features_list).reshape(int(rows), int(cols))
+    # TODO Exercise 1 *Done
 
     return m_word_vectors, word_to_id
 
@@ -71,7 +83,14 @@ def read_entity_types_file(filename, m_word_vectors, word_to_id, type_to_id = No
             parts = line.strip().split("\t")
             token_ids = [word_to_id[t] for t in parts[0].split(" ") if t in word_to_id]
             num_tokens = len(token_ids)
-            avg_feature_vec = None  # TODO: Exercise 2
+            feature_vec_sum = 0
+            if num_tokens > 0:
+                for token_id in token_ids:
+                    feature_vec_sum += m_word_vectors[token_id]
+                avg_feature_vec = (1 / num_tokens) * feature_vec_sum
+            else:
+                avg_feature_vec = np.zeros(num_dims)
+            # TODO: Exercise 2 *Done
             feature_rows.append(avg_feature_vec)
             for type in parts[1].split(" "):
                 if grow_type_dict and type not in type_to_id:
