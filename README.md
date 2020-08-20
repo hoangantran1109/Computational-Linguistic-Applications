@@ -1,2 +1,2 @@
-# src
+# CLA
 Computerlinguistische Anwendungen
